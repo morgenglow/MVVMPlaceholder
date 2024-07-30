@@ -1,3 +1,4 @@
+import Firebase
 import SwiftUI
 
 struct ItemDetailsView: View {
@@ -15,6 +16,10 @@ struct ItemDetailsView: View {
                     .padding(3)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.username)"])
+            }
             HStack(alignment: .top) {
                 Text("ID")
                     .fontWeight(.bold)
@@ -23,6 +28,10 @@ struct ItemDetailsView: View {
                 Text(String(object.id))
                     .padding(3)
                     .frame(maxWidth: .infinity,alignment: .leading)
+            }
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.id)"])
             }
             HStack(alignment: .top) {
                 Text("Email")
@@ -33,6 +42,10 @@ struct ItemDetailsView: View {
                     .padding(3)
                     .frame(maxWidth: .infinity,alignment: .leading)
             }
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.email)"])
+            }
             HStack(alignment: .top) {
                 Text("Address")
                     .fontWeight(.bold)
@@ -41,6 +54,10 @@ struct ItemDetailsView: View {
                 Text(object.address!.street + object.address!.suite + object.address!.city + object.address!.zipcode + object.address!.geo!.lat + object.address!.geo!.lng)
                     .padding(3)
                     .frame(maxWidth: .infinity,alignment: .leading)
+            }
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.address.debugDescription)"])
             }
             HStack(alignment: .top) {
                 Text("Phone")
@@ -51,6 +68,10 @@ struct ItemDetailsView: View {
                     .padding(3)
                     .frame(maxWidth: .infinity,alignment: .leading)
             }
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.phone)"])
+            }
             HStack(alignment: .top) {
                 Text("Website")
                     .fontWeight(.bold)
@@ -60,7 +81,11 @@ struct ItemDetailsView: View {
                     .padding(3)
                     .frame(maxWidth: .infinity,alignment: .leading)
             }
-            Spacer() 
+            .onAppear() {
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsEventViewItem: "\(object.website)"])
+            }
+            Spacer()
         }
         .padding()
         .navigationTitle(object.name)
