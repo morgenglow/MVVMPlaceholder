@@ -1,4 +1,5 @@
 import SwiftUI
+import Firebase
 
 struct ItemListView: View {
     @ObservedObject var viewModel = ItemListViewModel()
@@ -17,12 +18,21 @@ struct ItemListView: View {
                                 Text(user.name)
                             })
                         }.navigationTitle("User List")
+                            .onSubmit {
+                                Analytics.logEvent(AnalyticsEventScreenView,
+                                                   parameters: [AnalyticsParameterScreenName: "\(ItemListView.self)"])
+                            }
                     }
                 }
             }
             .onAppear(perform: {
                 viewModel.fetchUsers()
             })
+            .onAppear(){
+                Analytics.logEvent(AnalyticsEventScreenView,
+                                   parameters: [AnalyticsParameterScreenName: "\(ItemListView.self)",
+                                               AnalyticsParameterScreenClass: "\(ItemListView.self)"])
+            }
         }
     }
 }
